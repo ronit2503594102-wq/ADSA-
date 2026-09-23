@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
+
+#define SIZE 10
+
+char nameTable[SIZE][20] = {""};
+int rollTable[SIZE] = {0};
+
+int hashName(char name[])
+{
+    int i, sum = 0;
+
+    for(i = 0; name[i] != '\0'; i++)
+        sum += name[i];
+
+    return sum % SIZE;
+}
+
+int hashRoll(int roll)
+{
+    return roll % SIZE;
+}
+
+void main()
+{
+    int i;
+    int nameIndex, rollIndex;
+    char name[] = "satyam";
+    int roll = 60;
+
+    clrscr();
+
+    nameIndex = hashName(name);
+    strcpy(nameTable[nameIndex], name);
+
+    rollIndex = hashRoll(roll);
+    rollTable[rollIndex] = roll;
+
+    printf("\n\tHASH TABLE\n\n");
+    printf("Index\tName\t\tRoll No\n");
+
+    for(i = 0; i < SIZE; i++)
+    {
+        printf("%d\t", i);
+
+        if(strlen(nameTable[i]) != 0)
+            printf("%s\t\t", nameTable[i]);
+        else
+            printf("--\t\t");
+
+        if(rollTable[i] != 0)
+            printf("%d", rollTable[i]);
+        else
+            printf("--");
+
+        printf("\n");
+    }
+
+    getch();
+}
